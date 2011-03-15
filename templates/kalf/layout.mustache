@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>{{title}}</title>
+
+{{#stylesheets}}
+		<style ref="{{url}}" media="{{media}}" rel="stylesheet" type="text/css" />
+{{/stylesheets}}
+{{#scripts}}
+		<script href="{{url}}"></script>
+{{/scripts}}
+
+	</head>
+	<body>
+		<h1>{{title}}</h1>
+
+		<ul>
+		{{#main_navigation}}
+			<li><a href="{{url}}">{{text}}</a></li>
+		{{/main_navigation}}
+		</ul>
+
+	{{#has_section_navigation}}
+		<ul>
+		{{#section_navigation}}
+			<li><a href="{{url}}">{{text}}</a></li>
+		{{/section_navigation}}
+		</ul>
+	{{/has_section_navigation}}
+
+	{{#user_messages}}
+	<p>{{type}} : {{message}}</p>
+	{{/user_messages}}
+
+	{{>layout}}
+
+	</body>
+</html>
