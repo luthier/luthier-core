@@ -40,7 +40,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	 * This is done in the constructor so the property can be
 	 * overriden after the view is instantiated.
 	 */
-	public function __construct($template, array $partials = NULL)
+	public function __construct($template = NULL, array $partials = NULL)
 	{
 		parent::__construct($template, $partials);
 
@@ -54,7 +54,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	public function render()
 	{
 		$this->partial('layout', 'kalf/layout/'.$this->_sub_layout);
-		return $this->_stash($this->_template, $this, $this->_partials)->render();
+		return parent::render();
 	}
 
 	/**

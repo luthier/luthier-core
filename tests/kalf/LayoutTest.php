@@ -320,6 +320,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	{
 		$partials = array();
 		$this->view->bind('_partials', $partials);
+		$this->view->set('_template', 'some-template');
 		$this->view->render();
 		$this->assertEquals(1, count($partials));
 		$this->assertArrayHasKey('layout', $partials);

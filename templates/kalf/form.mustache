@@ -1,0 +1,13 @@
+<form method="post" {{#upload}}accept-charset="utf-8" enctype="multipart/form-data"{{/upload}}>
+{{#fields}}
+	{{#error}}<p class="error">{{error}}</p>{{/error}}
+	<p>
+		<label for="{{field}}">{{label}}</label>
+		{{{input}}}
+	</p>
+{{/fields}}
+
+	<p class="submit">
+		<input type="submit" value="{{submit}}" />
+	</p>
+</form>

@@ -1,0 +1,18 @@
+<table>
+	<thead>
+		<tr>
+		{{#columns}}
+			<th {{#col_class}}class="{{col_class}}"{{/col_class}}>{{title}}</th>
+		{{/columns}}
+		</tr>
+	</thead>
+	<tbody>
+	{{#rows}}
+		<tr {{#row_class}}class="{{row_class}}"{{/row_class}}>
+		{{#cells}}
+			<td {{#cell_class}}class="{{cell_class}}"{{/cell_class}}>{{contents}}</td>
+		{{/cells}}
+		</tr>
+	{{/rows}}
+	</tbody>
+</table>
