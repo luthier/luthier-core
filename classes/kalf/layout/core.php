@@ -11,6 +11,8 @@
  */
 abstract class Kalf_Layout_Core extends Kostache_Layout {
 
+	// The following protected/private attributes are used internally
+
 	/** The sub-layout template */
 	protected $_sub_layout = "full";
 
@@ -26,25 +28,45 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	/** The section navigation */
 	private $_section_navigation;
 
-	/** Whether the current user is logged in */
-	public $logged_in = FALSE;
-
 	/** Stylesheets */
 	protected $_stylesheets = array();
 
 	/** Scripts */
 	protected $_scripts = array();
 
+	// The following public attributes are used in mustache templates
+
+	/** Whether the current user is logged in */
+	public $logged_in = FALSE;
+
+	/** The media route URL */
+	public $media_url;
+
+	/** Title for the admin area */
+	public $title = "Administrative Control Panel";
+
+	/** Header for individual pages */
+	public $header;
+
+	/** The base URL */
+	public $base_url;
+
 	/**
-	 * Set the current controller based on the current request.
-	 * This is done in the constructor so the property can be
-	 * overriden after the view is instantiated.
+	 * We need to set a few things first...
 	 */
 	public function __construct($template = NULL, array $partials = NULL)
 	{
 		parent::__construct($template, $partials);
 
-		$this->_directory = trim(str_replace(Kalf::ROUTE_NAMESPACE, "", Request::current()->directory()), "/");
+		// Add section navigation as a partial
+		$this->partial('section_navigation', 'kalf/navigation');
+
+		// URLs
+		$this->base_url   = Kohana::$base_url;
+		$this->media_url  = Route::url('kalf/media', array('file'=>''));
+
+		// Get the current directory from the request/route
+		$this->_directory = trim(str_replace("kalf", "", Request::current()->directory()), "/");
 	}
 
 	/**
@@ -209,12 +231,35 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		return $this->_controllers;
 	}
 
+	/**
+	 * Are there any section navigation items?
+	 */
 	public function has_section_navigation()
 	{
-		return (count($this->section_navigation()) > 0);
+		return (count($this->_section_navigation()) > 0);
 	}
 
+	/**
+	 * Need to turn the section navigation into
+	 * a non-associative array for mustache.
+	 */
 	public function section_navigation()
+	{
+		$section_navigation = array();
+
+		foreach ($this->_section_navigation() as $section)
+		{
+			$section_navigation[] = $section;
+		}
+
+		return $section_navigation;
+	}
+
+	/**
+	 * Create the section navigation for other
+	 * controllers in the current directory.
+	 */
+	protected function _section_navigation()
 	{
 		// If section navigation has been created, return it
 		if ( ! empty($this->_section_navigation))
@@ -261,6 +306,10 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		return $this->_section_navigation;
 	}
 
+	/**
+	 * Add a new item to the section navigation, or optionally
+	 * create a new heading under the section navigation.
+	 */
 	public function _add_section_nav($text, $url, $header = NULL)
 	{
 		// Use current directory if no header specified
@@ -270,7 +319,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		}
 
 		// Get the section navigation
-		$section_navigation = $this->section_navigation();
+		$section_navigation = $this->_section_navigation();
 
 		// Create new header if it doesn't exist
 		if ( ! isset($section_navigation[$header]))
@@ -294,6 +343,9 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		$this->_section_navigation = $section_navigation;
 	}
 
+	/**
+	 * Get any user messages from the session.
+	 */
 	public function user_messages()
 	{
 		$user_messages = array();
@@ -304,8 +356,9 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 			foreach ($messages as $message)
 			{
 				$user_messages[] = array(
-					'type'    => $type,
-					'message' => $message,
+					'type'     => $type,
+					'message'  => $message,
+					'is_error' => ($type == Kalf::ERROR),
 				);
 			}
 		}
