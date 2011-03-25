@@ -1,8 +1,10 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
 return array(
-	// A2 instance name
-	'a2' => 'auth',
+	'auth' => array(
+		'a2' => 'a2',
+		'log' => Log::DEBUG,
+	),
 
 	'messages' => array(
 		'session' => array(

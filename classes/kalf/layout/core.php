@@ -128,7 +128,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 			'url'    => $url,
 			'text'   => $text,
 			'slug'   => URL::title($text),
-			'active' => ($this->_directory == ''),
+			'active' => (($this->_directory == '') && (Request::current()->controller() == 'home')),
 		);
 
 		// Auto-detect Kalf directories/controllers
@@ -162,7 +162,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 			'url'    => $url,
 			'text'   => $text,
 			'slug'   => URL::title($text),
-			'active' => ($this->_directory == 'auth'),
+			'active' => (($this->_directory == '') && (Request::current()->controller() == 'auth')),
 		);
 
 		return $main_navigation;
