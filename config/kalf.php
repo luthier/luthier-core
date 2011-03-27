@@ -13,5 +13,16 @@ return array(
 		),
 	),
 
+	'userguide' => array(
+		/*
+		'blog' => array(
+			'enabled'     => TRUE,
+			'name'        => 'Blog',
+			'description' => 'Blogging extension for article and comment management',
+			'file'        => 'blog',
+		),
+		 */
+	),
+
 );
 
