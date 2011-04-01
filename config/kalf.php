@@ -2,8 +2,8 @@
 
 return array(
 	'auth' => array(
-		'a2' => 'a2',
-		'log' => Log::DEBUG,
+		'instance' => 'auth',
+		'log'      => Log::DEBUG,
 	),
 
 	'messages' => array(
