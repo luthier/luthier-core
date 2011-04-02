@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because placeholder class
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Kalf index/home view
@@ -11,4 +13,4 @@
  */
 class View_Kalf_Home extends Kalf_Layout {
 
-}	// End of View_Kalf_Home
+}	// @codeCoverageIgnoreEnd

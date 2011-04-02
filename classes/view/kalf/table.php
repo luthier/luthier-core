@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because only contains abstract methods
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Basic table view
@@ -55,4 +57,4 @@ abstract class View_Kalf_Table extends Kalf_Layout {
 	 */
 	abstract public function rows();
 
-}	// End of View_Kalf_Table
+}	// @codeCoverageIgnoreEnd

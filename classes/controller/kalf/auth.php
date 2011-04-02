@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because placeholder class
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Placeholder controller for Kalf authentication.
@@ -35,4 +37,4 @@ class Controller_Kalf_Auth extends Controller {
 		$this->request->redirect( Route::get('kalf')->uri() );
 	}
 
-}
+}	// @codeCoverageIgnoreEnd

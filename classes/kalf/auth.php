@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because placeholder class
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Basic Auth interface.
@@ -32,4 +34,4 @@ class Kalf_Auth {
 		return TRUE;
 	}
 
-}
+}	// @codeCoverageIgnoreEnd

@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because only contains abstract methods
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Basic confirmation view
@@ -40,4 +42,4 @@ abstract class View_Kalf_Confirm extends Kalf_Layout {
 		parent::__construct('kalf/confirm', $partials);
 	}
 
-}	// End of view_Kalf_Confirm
+}	// @codeCoverageIgnoreEnd

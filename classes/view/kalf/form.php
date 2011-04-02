@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because only contains abstract methods
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Basic form view
@@ -50,4 +52,4 @@ abstract class View_Kalf_Form extends Kalf_Layout {
 	 */
 	abstract public function fields();
 
-}	// End of View_Kalf_Form
+}	// @codeCoverageIgnoreEnd

@@ -22,6 +22,9 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	/** The current directory */
 	protected $_directory = '';
 
+	/** The current controller */
+	protected $_controller = '';
+
 	/** The auto-detected directories/controllers */
 	private $_controllers;
 
@@ -67,6 +70,9 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 
 		// Get the current directory from the request/route
 		$this->_directory = trim(str_replace("kalf", "", Request::current()->directory()), "/");
+
+		// Get the current controller from the request/route
+		$this->_controller = Request::current()->controller();
 	}
 
 	/**
@@ -128,7 +134,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 			'url'    => $url,
 			'text'   => $text,
 			'slug'   => URL::title($text),
-			'active' => (($this->_directory == '') && (Request::current()->controller() == 'home')),
+			'active' => (($this->_directory == '') && ($this->_controller == 'home')),
 		);
 
 		// Auto-detect Kalf directories/controllers

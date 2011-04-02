@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because placeholder class
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Basic ACL interface.
@@ -25,4 +27,4 @@ class Kalf_Acl {
 		return TRUE;
 	}
 
-}
+}	// @codeCoverageIgnoreEnd

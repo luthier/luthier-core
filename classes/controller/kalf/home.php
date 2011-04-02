@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because placeholder class
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Default admin home controller
@@ -16,4 +18,4 @@ class Controller_Kalf_Home extends Controller {
 		$this->response->body(new View_Kalf_Home);
 	}
 
-}	// End of Controller_Kalf_Home
+}	// @codeCoverageIgnoreEnd

@@ -39,9 +39,9 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function provider_directory_extracted_from_request_url()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE, ''),
-			array(Kalf::ROUTE_NAMESPACE.'/blog', 'blog'),
-			array(Kalf::ROUTE_NAMESPACE.'/users', 'users'),
+			array('kalf', ''),
+			array('kalf/blog', 'blog'),
+			array('kalf/users', 'users'),
 		);
 	}
 
@@ -55,6 +55,32 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		Request::current()->directory($directory);
 		$view = $this->getMockForAbstractClass('Kalf_Layout_Core', array('kalf/layout'));
 		$this->assertAttributeEquals($expected, '_directory', $view);
+	}
+
+	/**
+	 * Provider for test_controller_extracted_from_request_url
+	 *
+	 * @return array
+	 */
+	public function provider_controller_extracted_from_request_url()
+	{
+		return array(
+			array('home', 'home'),
+			array('articles', 'articles'),
+			array('user_profiles', 'user_profiles'),
+		);
+	}
+
+	/**
+	 * Test the current controller is extracted from the request URL
+	 *
+	 * @dataProvider provider_controller_extracted_from_request_url
+	 */
+	public function test_controller_extracted_from_request_url($controller, $expected)
+	{
+		Request::current()->controller($controller);
+		$view = $this->getMockForAbstractClass('Kalf_Layout_Core', array('kalf/layout'));
+		$this->assertAttributeEquals($expected, '_controller', $view);
 	}
 
 	/**
@@ -153,9 +179,11 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function provider_main_navigation_shows_current_directory_active()
 	{
 		return array(
-			array('', 0),
-			array('blog', 1),
-			array('users', 2),
+			array('', 'home', 0),
+			array('blog', 'articles', 1),
+			array('blog', 'comments', 1),
+			array('users', 'home', 2),
+			array('users', 'admins', 2),
 		);
 	}
 
@@ -164,9 +192,10 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	 *
 	 * @dataProvider provider_main_navigation_shows_current_directory_active
 	 */
-	public function test_main_navigation_shows_current_directory_active($current, $index)
+	public function test_main_navigation_shows_current_directory_active($directory, $controller, $index)
 	{
-		$this->view->set('_directory', $current);
+		$this->view->set('_directory', $directory);
+		$this->view->set('_controller', $controller);
 		$items = $this->view->main_navigation();
 		$this->assertTrue($items[$index]['active']);
 	}
@@ -218,7 +247,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	{
 		$this->view->set('_directory', $current);
 		$section = $this->view->section_navigation();
-		$this->assertEquals($header, $section[$current]['header']);
+		$this->assertEquals($header, $section[0]['header']);
 	}
 
 	/**
@@ -245,7 +274,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	{
 		$this->view->set('_directory', $current);
 		$section = $this->view->section_navigation();
-		$items = $section[$current]['links'];
+		$items = $section[0]['links'];
 		$this->assertEquals($num, count($items));
 		$this->assertEquals($text, $items[$index]['text']);
 		$this->assertEquals($url, $items[$index]['url']);
@@ -259,7 +288,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->view->set('_directory', 'users');
 		$this->view->_add_section_nav('Moderators', 'admin/users/mods');
 		$section = $this->view->section_navigation();
-		$items = $section['users']['links'];
+		$items = $section[0]['links'];
 		$this->assertEquals(3, count($items));
 		$this->assertEquals('Moderators', $items[2]['text']);
 		$this->assertEquals('admin/users/mods', $items[2]['url']);
@@ -274,8 +303,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->view->_add_section_nav('Create New User', 'admin/users/new', 'Quick Links');
 		$section = $this->view->section_navigation();
 		$this->assertEquals(2, count($section));
-		$this->assertArrayHasKey('Quick Links', $section);
-		$this->assertEquals('Quick Links', $section['Quick Links']['header']);
+		$this->assertEquals('Quick Links', $section[1]['header']);
 	}
 
 	/**
@@ -287,7 +315,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->view->_add_section_nav('Create New User', 'admin/users/new', 'Quick Links');
 		$this->view->_add_section_nav('Edit My Info', 'admin/users/profile', 'Quick Links');
 		$section = $this->view->section_navigation();
-		$items = $section['Quick Links']['links'];
+		$items = $section[1]['links'];
 		$this->assertEquals(2, count($items));
 		$this->assertEquals('Create New User', $items[0]['text']);
 		$this->assertEquals('admin/users/new', $items[0]['url']);
