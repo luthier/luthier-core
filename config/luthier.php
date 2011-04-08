@@ -15,11 +15,11 @@ return array(
 
 	'userguide' => array(
 		/*
-		'blog' => array(
+		'module' => array(
 			'enabled'     => TRUE,
-			'name'        => 'Blog',
-			'description' => 'Blogging extension for article and comment management',
-			'file'        => 'blog',
+			'name'        => 'Module Name',
+			'description' => 'Module description',
+			'file'        => 'module',
 		),
 		 */
 	),

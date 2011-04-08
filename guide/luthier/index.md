@@ -38,9 +38,4 @@ External dependencies of the [luthier-core](https://github.com/luthier/luthier-c
 
  - Kohana 3.1
  - Kostache
- - A2?
 
-Luthier uses Wouter’s [A2](https://github.com/Wouterrr/A2) module as a common interface
-for authorization. It can be used with Wouter’s [A1](https://github.com/Wouterrr/A1)
-module or the [official auth](https://github.com/kohana/auth) module for authentication
-(instructions for getting this set up is outside of the scope of the Luthier documentation).
