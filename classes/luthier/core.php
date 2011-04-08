@@ -1,15 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Description
+ * Core functions of luthier
  *
- * @package     package
- * @category    category
+ * @package     Luthier
+ * @category    Base
  * @author      Kyle Treubig
  * @copyright   (C) 2010 Kyle Treubig
  * @license     MIT
  */
-abstract class Kalf_Core {
+abstract class Luthier_Core {
 
 	/** Route namespace */
 	const ROUTE_NAMESPACE = 'admin';
@@ -29,10 +29,10 @@ abstract class Kalf_Core {
 	public static function message($msg, $type = self::INFO)
 	{
 		// Get session
-		$session = Session::instance(Kohana::config('kalf.messages.session.type'));
+		$session = Session::instance(Kohana::config('luthier.messages.session.type'));
 
 		// Get session key from config
-		$key = Kohana::config('kalf.messages.session.key');
+		$key = Kohana::config('luthier.messages.session.key');
 
 		// Get current messages
 		$messages = unserialize($session->get($key, FALSE));
@@ -52,10 +52,10 @@ abstract class Kalf_Core {
 	public static function messages()
 	{
 		// Get session
-		$session = Session::instance(Kohana::config('kalf.messages.session.type'));
+		$session = Session::instance(Kohana::config('luthier.messages.session.type'));
 
 		// Get session key from config
-		$key = Kohana::config('kalf.messages.session.key');
+		$key = Kohana::config('luthier.messages.session.key');
 
 		// Get messages
 		$messages = unserialize($session->get($key, FALSE));
@@ -67,4 +67,4 @@ abstract class Kalf_Core {
 		return is_array($messages) ? $messages : array();
 	}
 
-}	// End of Kalf
+}

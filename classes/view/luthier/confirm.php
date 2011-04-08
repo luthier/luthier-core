@@ -5,13 +5,13 @@ defined('SYSPATH') or die('No direct script access.');
 /**
  * Basic confirmation view
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    View
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-abstract class View_Kalf_Confirm extends Kalf_Layout {
+abstract class View_Luthier_Confirm extends Luthier_Layout {
 
 	/**
 	 * @var string  The action being confirmed
@@ -35,11 +35,11 @@ abstract class View_Kalf_Confirm extends Kalf_Layout {
 	public $note = "";
 
 	/**
-	 * Use the kalf/confirm template
+	 * Use the luthier/confirm template
 	 */
 	public function __construct($template = NULL, array $partials = NULL)
 	{
-		parent::__construct('kalf/confirm', $partials);
+		parent::__construct('luthier/confirm', $partials);
 	}
 
 }	// @codeCoverageIgnoreEnd

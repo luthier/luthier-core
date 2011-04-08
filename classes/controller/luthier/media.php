@@ -1,15 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
-* Kalf media controller
+* Luthier media controller
 *
-* @package     Kalf
+* @package     Luthier
 * @category    Controller
 * @author      Kyle Treubig
 * @copyright   (C) 2011 Kyle Treubig
 * @license     MIT
  */
-class Controller_Kalf_Media extends Controller {
+class Controller_Luthier_Media extends Controller {
 
 	/**
 	 * Serve a file from the media directory within
