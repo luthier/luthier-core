@@ -3,16 +3,16 @@
 /**
  * PHPUnit tests for the layout view
  *
- * @group       kalf
- * @group       kalf.layout
+ * @group       luthier
+ * @group       luthier.layout
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Tests
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Kalf_LayoutTest extends Unittest_TestCase {
+class Luthier_LayoutTest extends Unittest_TestCase {
 
 	/**
 	 * Create an instance of the core layout view
@@ -25,10 +25,10 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		Request::$current = new Request('');
 
 		// Create the view
-		$this->view = $this->getMockForAbstractClass('Kalf_Layout_Core', array('kalf/layout'));
+		$this->view = $this->getMockForAbstractClass('Luthier_Layout_Core', array('luthier/layout'));
 
 		// Use test data for controller detection
-		$this->view->_detect_controllers(array(MODPATH.'kalf-core/tests/data/'));
+		$this->view->_detect_controllers(array(MODPATH.'luthier-core/tests/data/'));
 	}
 
 	/**
@@ -39,9 +39,9 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function provider_directory_extracted_from_request_url()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE, ''),
-			array(Kalf::ROUTE_NAMESPACE.'/blog', 'blog'),
-			array(Kalf::ROUTE_NAMESPACE.'/users', 'users'),
+			array('luthier', ''),
+			array('luthier/blog', 'blog'),
+			array('luthier/users', 'users'),
 		);
 	}
 
@@ -53,8 +53,34 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function test_directory_extracted_from_request_url($directory, $expected)
 	{
 		Request::current()->directory($directory);
-		$view = $this->getMockForAbstractClass('Kalf_Layout_Core', array('kalf/layout'));
+		$view = $this->getMockForAbstractClass('Luthier_Layout_Core', array('luthier/layout'));
 		$this->assertAttributeEquals($expected, '_directory', $view);
+	}
+
+	/**
+	 * Provider for test_controller_extracted_from_request_url
+	 *
+	 * @return array
+	 */
+	public function provider_controller_extracted_from_request_url()
+	{
+		return array(
+			array('home', 'home'),
+			array('articles', 'articles'),
+			array('user_profiles', 'user_profiles'),
+		);
+	}
+
+	/**
+	 * Test the current controller is extracted from the request URL
+	 *
+	 * @dataProvider provider_controller_extracted_from_request_url
+	 */
+	public function test_controller_extracted_from_request_url($controller, $expected)
+	{
+		Request::current()->controller($controller);
+		$view = $this->getMockForAbstractClass('Luthier_Layout_Core', array('luthier/layout'));
+		$this->assertAttributeEquals($expected, '_controller', $view);
 	}
 
 	/**
@@ -68,7 +94,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		// Verify stylesheets
 		$stylesheets = $this->view->stylesheets();
 		$this->assertEquals(1, count($stylesheets));
-		$this->assertEquals(Kalf::ROUTE_NAMESPACE.'/media/test/file.css', $stylesheets[0]['url']);
+		$this->assertEquals(Luthier::ROUTE_NAMESPACE.'/media/test/file.css', $stylesheets[0]['url']);
 		$this->assertEquals('testmedia', $stylesheets[0]['media']);
 	}
 
@@ -83,7 +109,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		// Verify scripts
 		$scripts = $this->view->scripts();
 		$this->assertEquals(1, count($scripts));
-		$this->assertEquals(Kalf::ROUTE_NAMESPACE.'/media/test/file.js', $scripts[0]['url']);
+		$this->assertEquals(Luthier::ROUTE_NAMESPACE.'/media/test/file.js', $scripts[0]['url']);
 	}
 
 	/**
@@ -133,7 +159,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function test_main_navigation_links_first_controller()
 	{
 		$items = $this->view->main_navigation();
-		$this->assertEquals(Kalf::ROUTE_NAMESPACE.'/blog/articles', $items[1]['url']);
+		$this->assertEquals(Luthier::ROUTE_NAMESPACE.'/blog/articles', $items[1]['url']);
 	}
 
 	/**
@@ -142,7 +168,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function test_main_navigation_links_home_controller()
 	{
 		$items = $this->view->main_navigation();
-		$this->assertEquals(Kalf::ROUTE_NAMESPACE.'/users', $items[2]['url']);
+		$this->assertEquals(Luthier::ROUTE_NAMESPACE.'/users', $items[2]['url']);
 	}
 
 	/**
@@ -153,9 +179,11 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function provider_main_navigation_shows_current_directory_active()
 	{
 		return array(
-			array('', 0),
-			array('blog', 1),
-			array('users', 2),
+			array('', 'home', 0),
+			array('blog', 'articles', 1),
+			array('blog', 'comments', 1),
+			array('users', 'home', 2),
+			array('users', 'admins', 2),
 		);
 	}
 
@@ -164,9 +192,10 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	 *
 	 * @dataProvider provider_main_navigation_shows_current_directory_active
 	 */
-	public function test_main_navigation_shows_current_directory_active($current, $index)
+	public function test_main_navigation_shows_current_directory_active($directory, $controller, $index)
 	{
-		$this->view->set('_directory', $current);
+		$this->view->set('_directory', $directory);
+		$this->view->set('_controller', $controller);
 		$items = $this->view->main_navigation();
 		$this->assertTrue($items[$index]['active']);
 	}
@@ -218,7 +247,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	{
 		$this->view->set('_directory', $current);
 		$section = $this->view->section_navigation();
-		$this->assertEquals($header, $section[$current]['header']);
+		$this->assertEquals($header, $section[0]['header']);
 	}
 
 	/**
@@ -229,10 +258,10 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	public function provider_directory_controllers_in_section_navigation()
 	{
 		return array(
-			array('blog', 2, 0, 'Articles', Kalf::ROUTE_NAMESPACE.'/blog/articles'),
-			array('blog', 2, 1, 'Comments', Kalf::ROUTE_NAMESPACE.'/blog/comments'),
-			array('users', 2, 0, 'Admins', Kalf::ROUTE_NAMESPACE.'/users/admins'),
-			array('users', 2, 1, 'Groups', Kalf::ROUTE_NAMESPACE.'/users/groups'),
+			array('blog', 2, 0, 'Articles', Luthier::ROUTE_NAMESPACE.'/blog/articles'),
+			array('blog', 2, 1, 'Comments', Luthier::ROUTE_NAMESPACE.'/blog/comments'),
+			array('users', 2, 0, 'Admins', Luthier::ROUTE_NAMESPACE.'/users/admins'),
+			array('users', 2, 1, 'Groups', Luthier::ROUTE_NAMESPACE.'/users/groups'),
 		);
 	}
 
@@ -245,7 +274,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	{
 		$this->view->set('_directory', $current);
 		$section = $this->view->section_navigation();
-		$items = $section[$current]['links'];
+		$items = $section[0]['links'];
 		$this->assertEquals($num, count($items));
 		$this->assertEquals($text, $items[$index]['text']);
 		$this->assertEquals($url, $items[$index]['url']);
@@ -259,7 +288,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->view->set('_directory', 'users');
 		$this->view->_add_section_nav('Moderators', 'admin/users/mods');
 		$section = $this->view->section_navigation();
-		$items = $section['users']['links'];
+		$items = $section[0]['links'];
 		$this->assertEquals(3, count($items));
 		$this->assertEquals('Moderators', $items[2]['text']);
 		$this->assertEquals('admin/users/mods', $items[2]['url']);
@@ -274,8 +303,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->view->_add_section_nav('Create New User', 'admin/users/new', 'Quick Links');
 		$section = $this->view->section_navigation();
 		$this->assertEquals(2, count($section));
-		$this->assertArrayHasKey('Quick Links', $section);
-		$this->assertEquals('Quick Links', $section['Quick Links']['header']);
+		$this->assertEquals('Quick Links', $section[1]['header']);
 	}
 
 	/**
@@ -287,7 +315,7 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->view->_add_section_nav('Create New User', 'admin/users/new', 'Quick Links');
 		$this->view->_add_section_nav('Edit My Info', 'admin/users/profile', 'Quick Links');
 		$section = $this->view->section_navigation();
-		$items = $section['Quick Links']['links'];
+		$items = $section[1]['links'];
 		$this->assertEquals(2, count($items));
 		$this->assertEquals('Create New User', $items[0]['text']);
 		$this->assertEquals('admin/users/new', $items[0]['url']);
@@ -300,14 +328,14 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 	 */
 	public function test_flash_messages_from_session()
 	{
-		Kalf::message('test_info_msg', Kalf::INFO);
-		Kalf::message('test_err_msg', Kalf::ERROR);
+		Luthier::message('test_info_msg', Luthier::INFO);
+		Luthier::message('test_err_msg', Luthier::ERROR);
 		$notices = $this->view->user_messages();
 
 		$this->assertEquals(2, count($notices));
-		$this->assertEquals(Kalf::INFO, $notices[0]['type']);
+		$this->assertEquals(Luthier::INFO, $notices[0]['type']);
 		$this->assertEquals('test_info_msg', $notices[0]['message']);
-		$this->assertEquals(Kalf::ERROR, $notices[1]['type']);
+		$this->assertEquals(Luthier::ERROR, $notices[1]['type']);
 		$this->assertEquals('test_err_msg', $notices[1]['message']);
 	}
 
@@ -326,4 +354,4 @@ class Kalf_LayoutTest extends Unittest_TestCase {
 		$this->assertArrayHasKey('layout', $partials);
 	}
 
-}	// End of Kalf_View_LayoutTest
+}

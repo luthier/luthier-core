@@ -3,16 +3,16 @@
 /**
  * PHPUnit tests for flash messages
  *
- * @group       kalf
- * @group       kalf.message
+ * @group       luthier
+ * @group       luthier.message
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Tests
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Kalf_MessageTest extends Unittest_TestCase {
+class Luthier_MessageTest extends Unittest_TestCase {
 
 	/**
 	 * Reset the session
@@ -22,10 +22,10 @@ class Kalf_MessageTest extends Unittest_TestCase {
 		parent::setUp();
 
 		// Get session
-		$this->session = Session::instance(Kohana::config('kalf.messages.session.type'));
+		$this->session = Session::instance(Kohana::config('luthier.messages.session.type'));
 
 		// Get session key
-		$this->key = Kohana::config('kalf.messages.session.key');
+		$this->key = Kohana::config('luthier.messages.session.key');
 
 		// Remove any prior messages
 		$this->session->delete($this->key);
@@ -39,7 +39,7 @@ class Kalf_MessageTest extends Unittest_TestCase {
 	{
 		// Store message
 		$msg = 'TEST SERIALIZED ARRAY';
-		Kalf::message($msg);
+		Luthier::message($msg);
 
 		// Verify message serialized in session
 		$message = unserialize($this->session->get($this->key));
@@ -56,8 +56,8 @@ class Kalf_MessageTest extends Unittest_TestCase {
 	public function provider_message_types()
 	{
 		return array(
-			array('TEST INFO MESSAGE', Kalf::INFO),
-			array('TEST ERROR MESSAGE', Kalf::ERROR),
+			array('TEST INFO MESSAGE', Luthier::INFO),
+			array('TEST ERROR MESSAGE', Luthier::ERROR),
 		);
 	}
 
@@ -69,7 +69,7 @@ class Kalf_MessageTest extends Unittest_TestCase {
 	public function test_message_types($msg, $type)
 	{
 		// Store message
-		Kalf::message($msg, $type);
+		Luthier::message($msg, $type);
 
 		// Verify message saved with type in session
 		$message = unserialize($this->session->get($this->key));
@@ -82,11 +82,11 @@ class Kalf_MessageTest extends Unittest_TestCase {
 	public function test_messages_are_deleted()
 	{
 		// Store messages
-		Kalf::message('TEST MESSAGE 1', Kalf::INFO);
-		Kalf::message('TEST MESSAGE 2', Kalf::ERROR);
+		Luthier::message('TEST MESSAGE 1', Luthier::INFO);
+		Luthier::message('TEST MESSAGE 2', Luthier::ERROR);
 
 		// Retrieve messages
-		Kalf::messages();
+		Luthier::messages();
 
 		// Verify messages deleted from session
 		$session = $this->session->get($this->key, FALSE);
@@ -100,9 +100,9 @@ class Kalf_MessageTest extends Unittest_TestCase {
 	{
 		$msg = 'TEST SERIALIZED ARRAY';
 		$this->session->set($this->key, serialize(array('info' => array($msg))));
-		Kalf::message($msg);
+		Luthier::message($msg);
 
-		$message = Kalf::messages();
+		$message = Luthier::messages();
 		$this->assertTrue(is_array($message));
 		$this->assertEquals(1, count($message));
 		$this->assertContains($msg, Arr::flatten($message));
@@ -114,9 +114,9 @@ class Kalf_MessageTest extends Unittest_TestCase {
 	 */
 	public function test_empty_array_when_no_messages()
 	{
-		$message = Kalf::messages();
+		$message = Luthier::messages();
 		$this->assertTrue(is_array($message));
 		$this->assertEquals(0, count($message));
 	}
 
-}	// End of Kalf_MessageTest
+}

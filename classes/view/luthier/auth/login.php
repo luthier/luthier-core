@@ -1,15 +1,17 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php // @codeCoverageIgnoreStart
+// Ignored because placeholder class and can be replaced
+defined('SYSPATH') or die('No direct script access.');
 
 /**
  * Login view
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    View
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class View_Kalf_Auth_Login extends View_Kalf_Form {
+class View_Luthier_Auth_Login extends View_Luthier_Form {
 
 	protected $_sub_layout = "narrow";
 
@@ -39,4 +41,4 @@ class View_Kalf_Auth_Login extends View_Kalf_Form {
 		);
 	}
 
-}	// End of View_Kalf_Auth_Login
+}	// @codeCoverageIgnoreEnd

@@ -1,15 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Kalf base layout view
+ * Luthier base layout view
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    View
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-abstract class Kalf_Layout_Core extends Kostache_Layout {
+abstract class Luthier_Layout_Core extends Kostache_Layout {
 
 	// The following protected/private attributes are used internally
 
@@ -17,10 +17,13 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	protected $_sub_layout = "full";
 
 	/** The layout template */
-	protected $_layout = "kalf/layout";
+	protected $_layout = "luthier/layout";
 
 	/** The current directory */
 	protected $_directory = '';
+
+	/** The current controller */
+	protected $_controller = '';
 
 	/** The auto-detected directories/controllers */
 	private $_controllers;
@@ -59,14 +62,17 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		parent::__construct($template, $partials);
 
 		// Add section navigation as a partial
-		$this->partial('section_navigation', 'kalf/navigation');
+		$this->partial('section_navigation', 'luthier/navigation');
 
 		// URLs
 		$this->base_url   = Kohana::$base_url;
-		$this->media_url  = Route::url('kalf/media', array('file'=>''));
+		$this->media_url  = Route::url('luthier/media', array('file'=>''));
 
 		// Get the current directory from the request/route
-		$this->_directory = trim(str_replace("kalf", "", Request::current()->directory()), "/");
+		$this->_directory = trim(str_replace("luthier", "", Request::current()->directory()), "/");
+
+		// Get the current controller from the request/route
+		$this->_controller = Request::current()->controller();
 	}
 
 	/**
@@ -75,7 +81,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	 */
 	public function render()
 	{
-		$this->partial('layout', 'kalf/layout/'.$this->_sub_layout);
+		$this->partial('layout', 'luthier/layout/'.$this->_sub_layout);
 		return parent::render();
 	}
 
@@ -89,7 +95,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		foreach ($this->_stylesheets as $style => $media)
 		{
 			$stylesheets[] = array(
-				'url'   => Route::get('kalf/media')->uri(array('file' => $style)),
+				'url'   => Route::get('luthier/media')->uri(array('file' => $style)),
 				'media' => $media,
 			);
 		}
@@ -107,7 +113,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		foreach ($this->_scripts as $script)
 		{
 			$scripts[] = array(
-				'url' => Route::get('kalf/media')->uri(array('file' => $script)),
+				'url' => Route::get('luthier/media')->uri(array('file' => $script)),
 			);
 		}
 
@@ -122,23 +128,23 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		$main_navigation = array();
 
 		// Add link to home/index/dashboard
-		$url  = Route::get('kalf')->uri();
+		$url  = Route::get('luthier')->uri();
 		$text = __('Home');
 		$main_navigation[] = array(
 			'url'    => $url,
 			'text'   => $text,
 			'slug'   => URL::title($text),
-			'active' => (($this->_directory == '') && (Request::current()->controller() == 'home')),
+			'active' => (($this->_directory == '') && ($this->_controller == 'home')),
 		);
 
-		// Auto-detect Kalf directories/controllers
+		// Auto-detect Luthier directories/controllers
 		$directories = $this->_detect_controllers();
 
 		// Add each detected directory of controllers as a navigation item
 		foreach ($directories as $directory => $controllers)
 		{
 			// Add a link for the first controller in the directory (omitting home from url)
-			$url  = Route::get('kalf')->uri(
+			$url  = Route::get('luthier')->uri(
 				array(
 					'directory'  => $directory,
 					'controller' => ($controllers[0] == "home" ? "" : $controllers[0]),
@@ -155,8 +161,8 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 
 		// Add login/logout link
 		$url  = $this->logged_in
-			? Route::get('kalf/auth')->uri(array('action' => 'logout'))
-			: Route::get('kalf/auth')->uri();
+			? Route::get('luthier/auth')->uri(array('action' => 'logout'))
+			: Route::get('luthier/auth')->uri();
 		$text = $this->logged_in ? __('Logout') : __('Login');
 		$main_navigation[] = array(
 			'url'    => $url,
@@ -169,7 +175,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	}
 
 	/**
-	 * Auto-detect the directories of Kalf controllers
+	 * Auto-detect the directories of Luthier controllers
 	 */
 	public function _detect_controllers(array $paths = NULL)
 	{
@@ -180,8 +186,8 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		// Initialize controllers to an array
 		$this->_controllers = array();
 
-		// Find all Kalf controllers
-		$files = Kohana::list_files('classes/controller/kalf', $paths);
+		// Find all Luthier controllers
+		$files = Kohana::list_files('classes/controller/luthier', $paths);
 
 		// Iterate through each directory
 		foreach ($files as $directory => $controllers)
@@ -268,7 +274,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		// Initialize to an array
 		$this->_section_navigation = array();
 
-		// Get detected Kalf directories/controllers
+		// Get detected Luthier directories/controllers
 		$directories = $this->_detect_controllers();
 
 		// If current directory doesn't exist or doesn't have multiple controllers
@@ -289,7 +295,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 			if ($controller == 'home')
 				continue;
 
-			$url  = Route::get('kalf')->uri(
+			$url  = Route::get('luthier')->uri(
 				array(
 					'directory'  => $this->_directory,
 					'controller' => $controller,
@@ -350,7 +356,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 	{
 		$user_messages = array();
 
-		$flash_messages = Kalf::messages();
+		$flash_messages = Luthier::messages();
 		foreach ($flash_messages as $type => $messages)
 		{
 			foreach ($messages as $message)
@@ -358,7 +364,7 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 				$user_messages[] = array(
 					'type'     => $type,
 					'message'  => $message,
-					'is_error' => ($type == Kalf::ERROR),
+					'is_error' => ($type == Luthier::ERROR),
 				);
 			}
 		}
@@ -366,4 +372,4 @@ abstract class Kalf_Layout_Core extends Kostache_Layout {
 		return $user_messages;
 	}
 
-}	// End of Kalf_Layout_Core
+}
