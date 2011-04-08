@@ -1,5 +1,5 @@
-# Kalf Extension Documentation
+# Luthier Extension Documentation
 
-The following Kalf extensions have userguide pages:
+The following Luthier extensions have userguide pages:
 
-{{kalf/userguide}}
+{{luthier/userguide}}

@@ -5,9 +5,9 @@ comparison with another module is applicable, provide the comparison here.
 
 # What are its dependencies?
 
-Kalf extension dependencies:
+Luthier extension dependencies:
 
-- List the interdependencies with other Kalf extensions
+- List the interdependencies with other Luthier extensions
 
 External dependencies:
 

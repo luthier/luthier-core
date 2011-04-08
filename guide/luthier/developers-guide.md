@@ -9,34 +9,34 @@ security vulnerability, documentation-related, feature request).
 # Git
 
 All source is kept under git version control and will be hosted at
-github.com. A Kalf organization has been created to host all “official”
-Kalf extensions (see submitting a module).
+github.com. A Luthier organization has been created to host all “official”
+Luthier extensions (see submitting a module).
 [Vincent Driessen's git branching model](http://nvie.com/posts/a-successful-git-branching-model)
 will be used for all development and releases.
 
 # Collaborating
 
-Anyone can fork any of the Kalf repositories and submit pull requests.
+Anyone can fork any of the Luthier repositories and submit pull requests.
 All code is subject to requirements compliance as described below prior to merging.
 
 Collaborators will be added to the github organization on a case-by-case basis.
 
 # Submitting a Module
 
-If you’ve developed a Kalf extension from which others might benefit,
+If you’ve developed a Luthier extension from which others might benefit,
 let us know so we can include it as an “official” extension! “Official”
-extensions will be hosted under the Kalf organization on github.com and
+extensions will be hosted under the Luthier organization on github.com and
 included in the demo app (if applicable/possible). Inclusion as an “official”
 extension means that an extension meets the requirements described below.
 If any of these requirements are not met, the extension will not be included
 until it conforms to the requirements.
 
-To submit an extension for inclusion, raise an issue in the [demo app](https://github.com/kalf/kalf-demo)
+To submit an extension for inclusion, raise an issue in the [demo app](https://github.com/luthier/luthier-demo)
 as a Feature Request, providing a link to the extension and specifying whether
 you will be able to provide support for the extension (don’t worry, it isn’t a
 lifelong binding contract).
 
-Instructions for integrating an extension with Kalf are documented in the userguide docs.
+Instructions for integrating an extension with Luthier are documented in the userguide docs.
 
 ## Code/Extension Requirements
 
@@ -48,13 +48,13 @@ the extension documentation to assist developers in choosing between the two ext
 
 ## Modularity
 
-One of Kalf’s goals is to be extremely modular. This means that if functionality may
-be used in several extensions--it should be its own extension (e.g. kalf-comments),
-or if it could be exchangeable--it should be its own extension (e.g. kalf-markitup).
+One of Luthier’s goals is to be extremely modular. This means that if functionality may
+be used in several extensions--it should be its own extension (e.g. luthier-comments),
+or if it could be exchangeable--it should be its own extension (e.g. luthier-markitup).
 
 ## Versioning
 
-Each Kalf extension should include a version number. Where to specify this is TBD
+Each Luthier extension should include a version number. Where to specify this is TBD
 
  - Define a global onstant? --kind of icky.
  - Static variable of a class? --not all extensions will have classes.
@@ -69,35 +69,35 @@ PHP Codesniffer prior to inclusion or merging.
 
 ## Naming Standards
 
-Kalf modules and repositories will be prefixed with “kalf-” (such as kalf-blog,
-kalf-comments, etc.). Kalf theme extensions will be prefixed with “kalf-theme-”
-(such as kalf-theme-davies). Kalf plugin extensions (if/when any are developed)
-will be prefixed with “kalf-plugin-”.
+Luthier modules and repositories will be prefixed with “luthier-” (such as luthier-blog,
+luthier-comments, etc.). Luthier theme extensions will be prefixed with “luthier-theme-”
+(such as luthier-theme-davies). Luthier plugin extensions (if/when any are developed)
+will be prefixed with “luthier-plugin-”.
 
 ## Media Files
 
-A media route is provided by the kalf-core module. All media files related to an
+A media route is provided by the luthier-core module. All media files related to an
 extension should be placed in the `media/<extension-name>` folder of the extension module.
 
 For example:
 
- - `MODPATH/kalf-theme-davies/media/kalf-theme-davies/css/template.css`
- - `MODPATH/kalf-markitup/media/kalf-markitup/js/jquery.markitup.js`
+ - `MODPATH/luthier-theme-davies/media/luthier-theme-davies/css/template.css`
+ - `MODPATH/luthier-markitup/media/luthier-markitup/js/jquery.markitup.js`
 
-Media files can be access through the `kalf/media` route.
+Media files can be access through the `luthier/media` route.
 
-    Route::get(‘kalf/media’)->uri(array(‘file’ => ‘kalf-markitup/js/jquery.markitup.js’));
+    Route::get(‘luthier/media’)->uri(array(‘file’ => ‘luthier-markitup/js/jquery.markitup.js’));
 
 ## Testing
 
-The goal is for every Kalf extension to be fully tested. While 100% code coverage
+The goal is for every Luthier extension to be fully tested. While 100% code coverage
 is not always possible (nor is that the goal), code coverage is a valuable analysis
 tool to identify code that is not being tested. Following the “one assertion per test”
 philosophy is not required. Rather, unit tests should be written in such a way that they
 test only one “specification” (so there should only be a few assertions per test).
 
 Unit tests are written using PHPUnit. Future efforts may include creating behavioral
-tests. Each Kalf extension with unit tests should provide a phpunit.xml file in the
+tests. Each Luthier extension with unit tests should provide a phpunit.xml file in the
 module root so that unit tests can be run from the command line (i.e. typing ‘phpunit’
 from the module root). If a unit test fails, please write up an issue in the appropriate
 extension so it can be addressed.

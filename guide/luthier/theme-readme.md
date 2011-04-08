@@ -4,7 +4,7 @@
 
 # Are there any dependencies?
 
-Specify any Kalf extensions or external dependencies necessary for using the theme.
+Specify any Luthier extensions or external dependencies necessary for using the theme.
 
 # Are any modifications necessary to use it?
 

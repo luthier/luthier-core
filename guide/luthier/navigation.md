@@ -1,7 +1,7 @@
 ﻿# Navigation
 
-By default, the Kalf layout view will automatically build the view’s
-navigation by scanning the Cascading File System for Kalf controllers
+By default, the Luthier layout view will automatically build the view’s
+navigation by scanning the Cascading File System for Luthier controllers
 ([see routing](routing)). Each detected directory results in one item
 in the main navigation, linking to the first (alphabetically) detected
 controller in each directory. If a `home` controller exists in a directory,
@@ -19,7 +19,7 @@ For example, given the following hierarchy of controllers:
 
     classes/
         controller/
-            kalf/
+            luthier/
                 blog/
                     articles.php
                     home.php
@@ -46,8 +46,8 @@ The main navigation will be:
     </ul>
 
 If automatic detection and building of the main navigation is not desired
-(custom ordering/grouping, etc.), then the `Kalf_Layout` class can be replaced
-(extending `Kalf_Layout_Core`) or extended, overriding the `main_navigation()` method.
+(custom ordering/grouping, etc.), then the `Luthier_Layout` class can be replaced
+(extending `Luthier_Layout_Core`) or extended, overriding the `main_navigation()` method.
 
 Additionally, a section navigation is built containing links to controllers within
 the current directory.  Depending on the theme, the section navigation may be displayed
@@ -67,7 +67,7 @@ on any of the `users` pages will be:
 
 While on the `gallery/photos` page, no section navigation will be displayed.
 
-The Kalf layout view contains convenience methods for individual views (extending
+The Luthier layout view contains convenience methods for individual views (extending
 the layout class) to add items to the section navigation and to add additional headings.
 Note that additional section navigation items apply only to the current view, thus to
 modify the section navigation for all pages/views of a particular group of controllers,
@@ -94,6 +94,6 @@ And the section navigation displayed would be:
     </ul>
 
 Just as with the main navigation, if automatic detection and building of the section
-navigation is not desired, the `Kalf_Layout` class should be replaced or extended,
+navigation is not desired, the `Luthier_Layout` class should be replaced or extended,
 overriding the `section_navigation()` method.
 

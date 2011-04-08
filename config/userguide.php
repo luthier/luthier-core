@@ -2,10 +2,10 @@
 
 return array(
 	'modules' => array(
-		'kalf' => array(
+		'luthier' => array(
 			'enabled'     => TRUE,
-			'name'        => 'Kalf',
-			'description' => 'Documentation for the Kohana admin layer framework',
+			'name'        => 'Luthier',
+			'description' => 'Documentation for the Luthier content management framework',
 			'copyright'   => '&copy; 2011 Kyle Treubig',
 		),
 	)

@@ -1,12 +1,12 @@
 ﻿# Creating Extension Documentation
 
-All Kalf extensions should include userguide documentation, if remotely
+All Luthier extensions should include userguide documentation, if remotely
 applicable. Unless an extension’s documentation is large enough to require it’s
-own section in the userguide, it should be included as part of the Kalf userguide
+own section in the userguide, it should be included as part of the Luthier userguide
 and be limited to one page. This will be dealt with on a case-by-case basis. All
 documentation should follow the userguide guidelines for formatting and content.
 
-To include pages with the Kalf userguide documentation, add a `kalf_userguide.php`
+To include pages with the Luthier userguide documentation, add a `luthier_userguide.php`
 config file with the following contents:
 
     return array(
@@ -20,8 +20,8 @@ config file with the following contents:
 
 Where `extension-name` is what will be displayed in the menu, along with `text`.
 The file should be the markdown formatted documentation file under the
-`guide/kalf/<extension>` folder. For example, if kalf-blog had a userguide page
-under `MODPATH/kalf-blog/guide/kalf/extension/blog.md`, the config file would be:
+`guide/luthier/<extension>` folder. For example, if luthier-blog had a userguide page
+under `MODPATH/luthier-blog/guide/luthier/extension/blog.md`, the config file would be:
 
     return array(
         ‘extensions’ => array(
@@ -34,4 +34,4 @@ under `MODPATH/kalf-blog/guide/kalf/extension/blog.md`, the config file would be
 
 All source should be well commented, containing Kodoc comments for all classes,
 variables, and methods. Each class within an extension should belong to the
-`Kalf/<extension-name>` package (eg, Kalf/Blog, Kalf/Stats).
+`Luthier/<extension-name>` package (eg, Luthier/Blog, Luthier/Stats).
