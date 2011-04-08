@@ -3,29 +3,29 @@
 /**
  * PHPUnit tests for the media controller
  *
- * @group       kalf
- * @group       kalf.media
+ * @group       luthier
+ * @group       luthier.media
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Tests
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Kalf_MediaTest extends Unittest_TestCase {
+class Luthier_MediaTest extends Unittest_TestCase {
 
 	public function test_media_controller_serves_static_file()
 	{
 		// Setup request
-		$url = Route::get('kalf/media')->uri(array('file' => 'kalf/test/static.html'));
+		$url = Route::get('luthier/media')->uri(array('file' => 'luthier/test/static.html'));
 		$request = new Request($url);
 
 		// Don't proceed if request not setup correctly
-		$this->assertEquals('kalf/test/static.html', $request->param('file'));
+		$this->assertEquals('luthier/test/static.html', $request->param('file'));
 
 		// Create response and controller
 		$response = new Response();
-		$controller = new Controller_Kalf_Media($request, $response);
+		$controller = new Controller_Luthier_Media($request, $response);
 
 		// Execute
 		$controller->action_file();
@@ -38,15 +38,15 @@ class Kalf_MediaTest extends Unittest_TestCase {
 	public function test_media_controller_404_not_found()
 	{
 		// Setup request
-		$url = Route::get('kalf/media')->uri(array('file' => 'kalf/test/dne.html'));
+		$url = Route::get('luthier/media')->uri(array('file' => 'luthier/test/dne.html'));
 		$request = new Request($url);
 
 		// Don't proceed if request not setup correctly
-		$this->assertEquals('kalf/test/dne.html', $request->param('file'));
+		$this->assertEquals('luthier/test/dne.html', $request->param('file'));
 
 		// Create response and controller
 		$response = new Response();
-		$controller = new Controller_Kalf_Media($request, $response);
+		$controller = new Controller_Luthier_Media($request, $response);
 
 		// Execute
 		$controller->action_file();

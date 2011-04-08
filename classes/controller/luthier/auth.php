@@ -3,17 +3,17 @@
 defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Placeholder controller for Kalf authentication.
- * This controller should be replaced by a Kalf extension
+ * Placeholder controller for Luthier authentication.
+ * This controller should be replaced by a Luthier extension
  * implementing a specific authentication solution.
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Controller
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Controller_Kalf_Auth extends Controller {
+class Controller_Luthier_Auth extends Controller {
 
 	/**
 	 * User login
@@ -22,8 +22,8 @@ class Controller_Kalf_Auth extends Controller {
 	 */
 	public function action_login()
 	{
-		Kohana::$log->add(Log::DEBUG, 'Executing Controller_Kalf_Auth::action_login');
-		$this->response->body(Kostache::factory('kalf/auth/login')->render());
+		Kohana::$log->add(Log::DEBUG, 'Executing Controller_Luthier_Auth::action_login');
+		$this->response->body(Kostache::factory('luthier/auth/login')->render());
 	}
 
 	/**
@@ -33,8 +33,8 @@ class Controller_Kalf_Auth extends Controller {
 	 */
 	public function action_logout()
 	{
-		Kohana::$log->add(Log::DEBUG, 'Executing Controller_Kalf_Auth::action_logout');
-		$this->request->redirect( Route::get('kalf')->uri() );
+		Kohana::$log->add(Log::DEBUG, 'Executing Controller_Luthier_Auth::action_logout');
+		$this->request->redirect( Route::get('luthier')->uri() );
 	}
 
 }	// @codeCoverageIgnoreEnd

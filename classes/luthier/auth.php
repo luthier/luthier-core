@@ -5,13 +5,13 @@ defined('SYSPATH') or die('No direct script access.');
 /**
  * Basic Auth interface.
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Base
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Kalf_Auth {
+class Luthier_Auth {
 
 	/**
 	 * Retrieve the currently logged in user, or

@@ -5,44 +5,44 @@
  * returns true in certain cases. If they already exist, then
  * those classes will suffice.
  */
-if ( ! class_exists('Controller_Kalf_Home'))
+if ( ! class_exists('Controller_Luthier_Home'))
 {
-	class Controller_Kalf_Home { }
+	class Controller_Luthier_Home { }
 }
 
-if ( ! class_exists('Controller_Kalf_Blog_Home'))
+if ( ! class_exists('Controller_Luthier_Blog_Home'))
 {
-	class Controller_Kalf_Blog_Home { }
+	class Controller_Luthier_Blog_Home { }
 }
 
-if ( ! class_exists('Controller_Kalf_Blog_Articles'))
+if ( ! class_exists('Controller_Luthier_Blog_Articles'))
 {
-	class Controller_Kalf_Blog_Articles { }
+	class Controller_Luthier_Blog_Articles { }
 }
 
-if ( ! class_exists('Controller_Kalf_Users_Home'))
+if ( ! class_exists('Controller_Luthier_Users_Home'))
 {
-	class Controller_Kalf_Users_Home { }
+	class Controller_Luthier_Users_Home { }
 }
 
-if ( ! class_exists('Controller_Kalf_Users_Admins'))
+if ( ! class_exists('Controller_Luthier_Users_Admins'))
 {
-	class Controller_Kalf_Users_Admins { }
+	class Controller_Luthier_Users_Admins { }
 }
 
 /**
- * PHPUnit tests for the Kalf routes
+ * PHPUnit tests for the Luthier routes
  *
- * @group       kalf
- * @group       kalf.routes
+ * @group       luthier
+ * @group       luthier.routes
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Tests
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Kalf_RouteTest extends Unittest_TestCase {
+class Luthier_RouteTest extends Unittest_TestCase {
 
 	/**
 	 * Include route definitions and setup namespace
@@ -51,7 +51,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	{
 		parent::setUp();
 
-		require_once(MODPATH.'/kalf-core/init.php');
+		require_once(MODPATH.'/luthier-core/init.php');
 	}
 
 	/**
@@ -62,9 +62,9 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	public function provider_media_route_reverse_routing()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE.'/media/kalf/css/theme.css', 'kalf/css/theme.css'),
-			array(Kalf::ROUTE_NAMESPACE.'/media/kalf/js/action.js',  'kalf/js/action.js'),
-			array(Kalf::ROUTE_NAMESPACE.'/media/kalf/img/photo.jpg', 'kalf/img/photo.jpg'),
+			array(Luthier::ROUTE_NAMESPACE.'/media/luthier/css/theme.css', 'luthier/css/theme.css'),
+			array(Luthier::ROUTE_NAMESPACE.'/media/luthier/js/action.js',  'luthier/js/action.js'),
+			array(Luthier::ROUTE_NAMESPACE.'/media/luthier/img/photo.jpg', 'luthier/img/photo.jpg'),
 		);
 	}
 
@@ -75,7 +75,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	 */
 	public function test_media_route_reverse_routing($expected, $file)
 	{
-		$route = Route::get('kalf/media');
+		$route = Route::get('luthier/media');
 		$url = $route->uri(array('file' => $file));
 		$this->assertEquals($expected, $url);
 	}
@@ -88,10 +88,10 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	public function provider_media_route_matches()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE.'/media/kalf/css/theme.css', TRUE, array('directory'=>'kalf', 'controller'=>'media', 'action'=>'file', 'file'=>'kalf/css/theme.css')),
-			array(Kalf::ROUTE_NAMESPACE.'/media/kalf/img/photo.jpg', TRUE, array('directory'=>'kalf', 'controller'=>'media', 'action'=>'file', 'file'=>'kalf/img/photo.jpg')),
-			array(Kalf::ROUTE_NAMESPACE.'/media/kalf/js/action.js',  TRUE, array('directory'=>'kalf', 'controller'=>'media', 'action'=>'file', 'file'=>'kalf/js/action.jpg')),
-			array(Kalf::ROUTE_NAMESPACE.'/notmedia', FALSE, array()),
+			array(Luthier::ROUTE_NAMESPACE.'/media/luthier/css/theme.css', TRUE, array('directory'=>'luthier', 'controller'=>'media', 'action'=>'file', 'file'=>'luthier/css/theme.css')),
+			array(Luthier::ROUTE_NAMESPACE.'/media/luthier/img/photo.jpg', TRUE, array('directory'=>'luthier', 'controller'=>'media', 'action'=>'file', 'file'=>'luthier/img/photo.jpg')),
+			array(Luthier::ROUTE_NAMESPACE.'/media/luthier/js/action.js',  TRUE, array('directory'=>'luthier', 'controller'=>'media', 'action'=>'file', 'file'=>'luthier/js/action.jpg')),
+			array(Luthier::ROUTE_NAMESPACE.'/notmedia', FALSE, array()),
 		);
 	}
 
@@ -102,7 +102,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	 */
 	public function test_media_route_matches($uri, $match, $params)
 	{
-		$route = Route::get('kalf/media');
+		$route = Route::get('luthier/media');
 		$matches = $route->matches($uri);
 
 		$this->assertEquals($match, is_array($matches));
@@ -123,9 +123,9 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	public function provider_auth_route_reverse_routing()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE.'/login',  array('action'=>'login')),
-			array(Kalf::ROUTE_NAMESPACE.'/logout', array('action'=>'logout')),
-			array(Kalf::ROUTE_NAMESPACE.'/login',  array()),
+			array(Luthier::ROUTE_NAMESPACE.'/login',  array('action'=>'login')),
+			array(Luthier::ROUTE_NAMESPACE.'/logout', array('action'=>'logout')),
+			array(Luthier::ROUTE_NAMESPACE.'/login',  array()),
 		);
 	}
 
@@ -136,7 +136,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	 */
 	public function test_auth_route_reverse_routing($expected, $params)
 	{
-		$route = Route::get('kalf/auth');
+		$route = Route::get('luthier/auth');
 		$url = $route->uri($params);
 		$this->assertEquals($expected, $url);
 	}
@@ -149,9 +149,9 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	public function provider_auth_route_matches()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE.'/login',  TRUE, array('directory'=>'kalf', 'controller'=>'auth', 'action'=>'login')),
-			array(Kalf::ROUTE_NAMESPACE.'/logout', TRUE, array('directory'=>'kalf', 'controller'=>'auth', 'action'=>'logout')),
-			array(Kalf::ROUTE_NAMESPACE.'/notauth', FALSE, array()),
+			array(Luthier::ROUTE_NAMESPACE.'/login',  TRUE, array('directory'=>'luthier', 'controller'=>'auth', 'action'=>'login')),
+			array(Luthier::ROUTE_NAMESPACE.'/logout', TRUE, array('directory'=>'luthier', 'controller'=>'auth', 'action'=>'logout')),
+			array(Luthier::ROUTE_NAMESPACE.'/notauth', FALSE, array()),
 		);
 	}
 
@@ -162,7 +162,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	 */
 	public function test_auth_route_matches($uri, $match, $params)
 	{
-		$route = Route::get('kalf/auth');
+		$route = Route::get('luthier/auth');
 		$matches = $route->matches($uri);
 
 		$this->assertEquals($match, is_array($matches));
@@ -183,13 +183,13 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	public function provider_primary_route_reverse_routing()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE, array()),
-			array(Kalf::ROUTE_NAMESPACE.'/blog', array('directory'=>'blog')),
-			array(Kalf::ROUTE_NAMESPACE.'/blog/articles', array('directory'=>'blog', 'controller'=>'articles')),
-			array(Kalf::ROUTE_NAMESPACE.'/blog/articles/new', array('directory'=>'blog', 'controller'=>'articles', 'action'=>'new')),
-			array(Kalf::ROUTE_NAMESPACE.'/users', array('controller'=>'users')),
-			array(Kalf::ROUTE_NAMESPACE.'/users/new', array('controller'=>'users', 'action'=>'new')),
-			array(Kalf::ROUTE_NAMESPACE.'/users/new', array('directory'=>'users', 'controller'=>'new')),
+			array(Luthier::ROUTE_NAMESPACE, array()),
+			array(Luthier::ROUTE_NAMESPACE.'/blog', array('directory'=>'blog')),
+			array(Luthier::ROUTE_NAMESPACE.'/blog/articles', array('directory'=>'blog', 'controller'=>'articles')),
+			array(Luthier::ROUTE_NAMESPACE.'/blog/articles/new', array('directory'=>'blog', 'controller'=>'articles', 'action'=>'new')),
+			array(Luthier::ROUTE_NAMESPACE.'/users', array('controller'=>'users')),
+			array(Luthier::ROUTE_NAMESPACE.'/users/new', array('controller'=>'users', 'action'=>'new')),
+			array(Luthier::ROUTE_NAMESPACE.'/users/new', array('directory'=>'users', 'controller'=>'new')),
 		);
 	}
 
@@ -200,7 +200,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	 */
 	public function test_primary_route_reverse_routing($expected, $params)
 	{
-		$route = Route::get('kalf');
+		$route = Route::get('luthier');
 		$url = $route->uri($params);
 		$this->assertEquals($expected, $url);
 	}
@@ -213,14 +213,14 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	public function provider_primary_route_matches()
 	{
 		return array(
-			array(Kalf::ROUTE_NAMESPACE,                      TRUE, array('directory'=>'kalf',      'controller'=>'home',     'action'=>'index')),
-			array(Kalf::ROUTE_NAMESPACE.'/blog',              TRUE, array('directory'=>'kalf/blog', 'controller'=>'home',     'action'=>'index')),
-			array(Kalf::ROUTE_NAMESPACE.'/blog/articles',     TRUE, array('directory'=>'kalf/blog', 'controller'=>'articles', 'action'=>'index')),
-			array(Kalf::ROUTE_NAMESPACE.'/blog/articles/new', TRUE, array('directory'=>'kalf/blog', 'controller'=>'articles', 'action'=>'new')),
-			array(Kalf::ROUTE_NAMESPACE.'/users',             TRUE, array('directory'=>'kalf/users', 'controller'=>'home',    'action'=>'index')),
-			array(Kalf::ROUTE_NAMESPACE.'/users/new',         TRUE, array('directory'=>'kalf/users', 'controller'=>'home',    'action'=>'new')),
-			array(Kalf::ROUTE_NAMESPACE.'/users/admins',      TRUE, array('directory'=>'kalf/users', 'controller'=>'admins',  'action'=>'index')),
-			array(Kalf::ROUTE_NAMESPACE.'/users/home/admins', TRUE, array('directory'=>'kalf/users', 'controller'=>'home',    'action'=>'admins')),
+			array(Luthier::ROUTE_NAMESPACE,                      TRUE, array('directory'=>'luthier',      'controller'=>'home',     'action'=>'index')),
+			array(Luthier::ROUTE_NAMESPACE.'/blog',              TRUE, array('directory'=>'luthier/blog', 'controller'=>'home',     'action'=>'index')),
+			array(Luthier::ROUTE_NAMESPACE.'/blog/articles',     TRUE, array('directory'=>'luthier/blog', 'controller'=>'articles', 'action'=>'index')),
+			array(Luthier::ROUTE_NAMESPACE.'/blog/articles/new', TRUE, array('directory'=>'luthier/blog', 'controller'=>'articles', 'action'=>'new')),
+			array(Luthier::ROUTE_NAMESPACE.'/users',             TRUE, array('directory'=>'luthier/users', 'controller'=>'home',    'action'=>'index')),
+			array(Luthier::ROUTE_NAMESPACE.'/users/new',         TRUE, array('directory'=>'luthier/users', 'controller'=>'home',    'action'=>'new')),
+			array(Luthier::ROUTE_NAMESPACE.'/users/admins',      TRUE, array('directory'=>'luthier/users', 'controller'=>'admins',  'action'=>'index')),
+			array(Luthier::ROUTE_NAMESPACE.'/users/home/admins', TRUE, array('directory'=>'luthier/users', 'controller'=>'home',    'action'=>'admins')),
 		);
 	}
 
@@ -231,7 +231,7 @@ class Kalf_RouteTest extends Unittest_TestCase {
 	 */
 	public function test_primary_route_matches($uri, $match, $params)
 	{
-		$route = Route::get('kalf');
+		$route = Route::get('luthier');
 		$matches = $route->matches($uri);
 
 		$this->assertEquals($match, is_array($matches));
@@ -244,4 +244,4 @@ class Kalf_RouteTest extends Unittest_TestCase {
 		}
 	}
 
-}	// End of Kalf_RouteTest
+}

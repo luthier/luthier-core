@@ -5,13 +5,13 @@ defined('SYSPATH') or die('No direct script access.');
 /**
  * Basic ACL interface.
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    Base
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-class Kalf_Acl {
+class Luthier_Acl {
 
 	/**
 	 * Perform an ACL check for a given user, checking if

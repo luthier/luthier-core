@@ -5,20 +5,20 @@ defined('SYSPATH') or die('No direct script access.');
 /**
  * Basic table view
  *
- * @package     Kalf
+ * @package     Luthier
  * @category    View
  * @author      Kyle Treubig
  * @copyright   (C) 2011 Kyle Treubig
  * @license     MIT
  */
-abstract class View_Kalf_Table extends Kalf_Layout {
+abstract class View_Luthier_Table extends Luthier_Layout {
 
 	/**
-	 * Use the kalf/table template
+	 * Use the luthier/table template
 	 */
 	public function __construct($template = NULL, array $partials = NULL)
 	{
-		parent::__construct('kalf/table', $partials);
+		parent::__construct('luthier/table', $partials);
 	}
 
 	/**
