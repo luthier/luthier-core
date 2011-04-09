@@ -46,7 +46,8 @@ Route::set('luthier', function($uri)
 		$action     = $params['action'];
 
 		// If controller doesn't exist, forward action to home controller
-		$class = 'Controller_Luthier_'.(empty($directory) ? '' : $directory.'_').$controller;
+		$class = 'Controller_Luthier_'.$directory;
+		$class .= (empty($directory) ? '' : '_').$controller;
 		if ( ! class_exists($class))
 		{
 			// Use "controller" as the action

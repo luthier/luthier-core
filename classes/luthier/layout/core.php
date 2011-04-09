@@ -134,7 +134,7 @@ abstract class Luthier_Layout_Core extends Kostache_Layout {
 			'url'    => $url,
 			'text'   => $text,
 			'slug'   => URL::title($text),
-			'active' => (($this->_directory == '') && ($this->_controller == 'home')),
+			'active' => (($this->_directory == '') AND ($this->_controller == 'home')),
 		);
 
 		// Auto-detect Luthier directories/controllers
@@ -147,7 +147,7 @@ abstract class Luthier_Layout_Core extends Kostache_Layout {
 			$url  = Route::get('luthier')->uri(
 				array(
 					'directory'  => $directory,
-					'controller' => ($controllers[0] == "home" ? "" : $controllers[0]),
+					'controller' => (($controllers[0] == "home") ? "" : $controllers[0]),
 				)
 			);
 			$text = __(ucfirst($directory));
@@ -168,7 +168,7 @@ abstract class Luthier_Layout_Core extends Kostache_Layout {
 			'url'    => $url,
 			'text'   => $text,
 			'slug'   => URL::title($text),
-			'active' => (($this->_directory == '') && (Request::current()->controller() == 'auth')),
+			'active' => (($this->_directory == '') AND (Request::current()->controller() == 'auth')),
 		);
 
 		return $main_navigation;
@@ -279,9 +279,11 @@ abstract class Luthier_Layout_Core extends Kostache_Layout {
 
 		// If current directory doesn't exist or doesn't have multiple controllers
 		if (( ! isset($directories[$this->_directory]))
-		    OR (count($directories[$this->_directory]) < 2))
+			OR (count($directories[$this->_directory]) < 2))
+		{
 			// Don't process further (empty array)
 			return $this->_section_navigation;
+		}
 
 		// Add current directory as header
 		$section = array();

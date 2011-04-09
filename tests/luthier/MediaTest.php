@@ -24,7 +24,7 @@ class Luthier_MediaTest extends Unittest_TestCase {
 		$this->assertEquals('luthier/test/static.html', $request->param('file'));
 
 		// Create response and controller
-		$response = new Response();
+		$response = new Response;
 		$controller = new Controller_Luthier_Media($request, $response);
 
 		// Execute
@@ -45,7 +45,7 @@ class Luthier_MediaTest extends Unittest_TestCase {
 		$this->assertEquals('luthier/test/dne.html', $request->param('file'));
 
 		// Create response and controller
-		$response = new Response();
+		$response = new Response;
 		$controller = new Controller_Luthier_Media($request, $response);
 
 		// Execute
