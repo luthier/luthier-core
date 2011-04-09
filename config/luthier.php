@@ -13,5 +13,16 @@ return array(
 		),
 	),
 
+	'userguide' => array(
+		/*
+		'module' => array(
+			'enabled'     => TRUE,
+			'name'        => 'Module Name',
+			'description' => 'Module description',
+			'file'        => 'module',
+		),
+		 */
+	),
+
 );
 
